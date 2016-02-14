@@ -1,0 +1,13 @@
+{
+    "name": "sensors",
+    "version": "0.0.1",
+    "description": "sensors project",
+    "engines": {
+        "node": "~0.8.0"
+    },
+    "dependencies": {
+        "python-shell": "0.3.0",
+        "blynk-library": "0.0.28",
+        "node-dht-sensor": "0.0.11"
+    }
+}

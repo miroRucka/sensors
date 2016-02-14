@@ -1,0 +1,1 @@
+Application for read data from dht11 sensor. Application build on raspberry pi platform.
