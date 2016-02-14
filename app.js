@@ -4,7 +4,7 @@ var sensor = {
     sensors: [ {
         name: "Indoor",
         type: 11,
-        pin: 17
+        pin: 25
     }, {
         name: "Outdoor",
         type: 11,
