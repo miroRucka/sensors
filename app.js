@@ -13,4 +13,4 @@ var jobTick = function () {
     });
 };
 
-scheduler.start(jobTick);
+scheduler(jobTick).start();

@@ -10,7 +10,7 @@ var Promise = require("promise");
 
 module.exports = function (sensorData) {
     return new Promise(function (resolve, reject) {
-        restler.postJson(config.serverEndpoint + "api/upload", sensorData, {
+        restler.postJson(config.serverEndpoint + "api/sensors", sensorData, {
             headers: headers
         }).on("success", function (data) {
                resolve(data);

@@ -7,7 +7,7 @@ var config = require('./sensors.json');
 var logger = new (winston.Logger)({
 
     transports: [
-        //new (winston.transports.Console)({ json: false, timestamp: true, level: 'debug' }),
+        new (winston.transports.Console)({ json: false, timestamp: true, level: 'debug' }),
         new winston.transports.File({ filename: config.logPath + 'debug.log', json: false, level: 'debug' })
     ],
     exceptionHandlers: [
