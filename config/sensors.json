@@ -1,0 +1,6 @@
+{
+  "serverEndpoint": "http://horske.info:8082/",
+  "logPath": "/home/pi/logs/",
+  "auth": "c3VzbGlrOmJ1Ym8=",
+  "jobTimeout": 30000
+}
