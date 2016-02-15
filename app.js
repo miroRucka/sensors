@@ -1,21 +1,16 @@
-var sensorLib = require('node-dht-sensor');
+var logger = require('./config/logging');
+var sensors = require('./sensors/sensors');
+var uploader = require('./upload/sensorUploader');
+var scheduler = require('./scheduler/serviceScheduler');
 
-var sensor = {
-    initialize: function () {
-        return sensorLib.initialize(11, 4);
-    },
-    read: function () {
-        var readout = sensorLib.read();
-        console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' +
-            'humidity: ' + readout.humidity.toFixed(2) + '%');
-        setTimeout(function () {
-            sensor.read();
-        }, 2000);
-    }
+logger.info('start application for reading sensor data...');
+
+var jobTick = function () {
+    sensors().then(function (data) {
+        return uploader(data)
+    }).then(function (data) {
+        logger.info('result after upload is ', data);
+    });
 };
 
-if (sensor.initialize()) {
-    sensor.read();
-} else {
-    console.warn('Failed to initialize sensor');
-}
+scheduler(jobTick).start();
