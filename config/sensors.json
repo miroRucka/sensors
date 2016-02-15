@@ -4,5 +4,7 @@
   "auth": "c3VzbGlrOmJ1Ym8=",
   "jobTimeout": 30000,
   "location": "office ZA",
-  "locationId": "location_001"
+  "locationId": "location_001",
+  "sensorType": 11,
+  "pin": 4
 }

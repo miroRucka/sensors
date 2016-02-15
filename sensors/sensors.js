@@ -6,12 +6,12 @@ var sensorLib = require('node-dht-sensor');
 var Promise = require("promise");
 var logger = require('../config/logging');
 var config = require('../config/sensors.json');
+var init = sensorLib.initialize(config.sensorType, config.pin);
+logger.info('init sensors hw is ', init);
 
 
 var _readDH11 = function () {
     return new Promise(function (resolve, reject) {
-        var init = sensorLib.initialize(11, 4);
-        logger.info('init sensors hw is ', init);
         if (init) {
             var readout = sensorLib.read();
             var data = {
