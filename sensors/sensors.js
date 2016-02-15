@@ -20,7 +20,6 @@ var _readDH11 = function () {
                 location: config.location,
                 locationId: config.locationId,
             };
-            logger.info('data ', data);
             resolve(data);
         } else {
             logger.error('error occurred - read sensor data, please check configuration and hw settings,');
