@@ -5,5 +5,5 @@ sudo modprobe w1-gpio
 sudo modprobe w1-therm
 cd /home/pi/github/sensors
 forever stopall
-sudo forever start -l /home/pi/logs/output.log -a app.js
+sudo forever start -l /home/pi/logs/output.log -a app.js http://horske.info:8085/
 
