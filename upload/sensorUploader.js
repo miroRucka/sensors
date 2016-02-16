@@ -3,7 +3,7 @@
  * @type {exports}
  */
 var restler = require('restler');
-var config = require('../config/sensors.json')
+var config = require('../config/sensors.json');
 var logger = require('../config/logging');
 var headers = require('./headers');
 var Promise = require("promise");
