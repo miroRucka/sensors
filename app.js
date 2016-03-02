@@ -5,7 +5,7 @@ var scheduler = require('./scheduler/serviceScheduler');
 
 logger.info('start application for reading sensor data...');
 
-/*var jobTick = function () {
+var jobTick = function () {
     sensors().then(function (data) {
         return uploader(data)
     }).then(function (data) {
@@ -13,8 +13,4 @@ logger.info('start application for reading sensor data...');
     });
 };
 
-scheduler(jobTick).start();*/
-
-sensors().then(function (data) {
-    console.log('data >', data);
-});
+scheduler(jobTick).start();
