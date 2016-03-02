@@ -10,7 +10,7 @@ var dht = require('node-dht-sensor');
 var sense = require('ds18b20');
 var BMP085 = require('bmp085');
 var barometer = new BMP085();
-var BH1750 = require('./bh1750');
+var BH1750 = require('bh1750');
 var _ = require('lodash');
 var utils = require('../utils');
 
