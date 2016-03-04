@@ -26,8 +26,8 @@ var _readDHT = function () {
         if (init) {
             var readout = dht.read();
             var data = {
-                temperature: readout.temperature.toFixed(2),
-                humidity: readout.humidity.toFixed(2)
+                temperature: readout.temperature,
+                humidity: readout.humidity
             };
             resolve(data);
         } else {
@@ -98,12 +98,12 @@ module.exports = function () {
         .then(function (data) {
             var rsl = _getPressureRSL(data.pressure, data.temperature, config.elevation);
             result.pressure = utils.exists(rsl) ? rsl : data.pressure;
-            result.temperature.push({'t1': data.temperature});
+            result.temperature.push({'key': 't1', value: Number(data.temperature)});
             return _readDs18b20();
         }, function () {
             return _readDs18b20();
         }).then(function (data) {
-            result.temperature.push({'t2': data});
+            result.temperature.push({'key': 't2', value: Number(data)});
             return _readLight();
         }, function () {
             return _readLight();
@@ -111,7 +111,7 @@ module.exports = function () {
             result.light = light;
             return _readDHT()
         }).then(function (dht) {
-            result.temperature.push({'t3': dht.temperature});
+            result.temperature.push({'key': 't3', value: Number(dht.temperature)});
             result.humidity = dht.humidity;
             return new Promise(function (resolve) {
                 resolve(result);
