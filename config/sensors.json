@@ -5,7 +5,6 @@
   "jobTimeout": 30000,
   "location": "office ZA",
   "locationId": "location_001",
-  //zilina vlcince 368mnm
   "elevation": "368",
   "sensorType": 22,
   "pin": 23
