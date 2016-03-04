@@ -86,14 +86,10 @@ var _readDs18b20WithId = function (ids, resolve, reject) {
 };
 
 var _getPressureRSL = function (pressure, temperature, elevation) {
-    console.log("entry>>> ", pressure, temperature, elevation);
     if (_.isUndefined(pressure) || _.isUndefined(temperature) || _.isUndefined(elevation)) {
         return;
     }
-    var r;
-    r = Number(pressure) / Math.exp(-Number(elevation) / (29.271795 * (273.15 + Number(temperature))));
-    console.log("result>>> ", r);
-    return r;
+    return Number(pressure) / Math.exp(-Number(elevation) / (29.271795 * (273.15 + Number(temperature))));
 };
 
 module.exports = function () {
