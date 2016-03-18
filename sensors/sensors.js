@@ -85,6 +85,9 @@ var _readDs18b20WithId = function (ids, resolve, reject) {
                 logger.error('exception reading sensor Ds18b20', err);
             } else {
                 console.log("id>>", value);
+                var res = -(~(value - 1) / 16);
+                console.log("id>>", res);
+
                 resolve(value);
             }
         });
