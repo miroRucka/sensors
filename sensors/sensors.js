@@ -59,6 +59,7 @@ var _readDs18b20 = function () {
         sense.sensors(function (err, ids) {
             if (err) {
                 reject(err);
+                console.log("reject after read >>>>", err);
                 logger.error('exception reading sensor Ds18b20', err);
             } else {
                 _readDs18b20WithId(ids, resolve, reject)
@@ -78,7 +79,9 @@ var _readDs18b20WithId = function (ids, resolve, reject) {
         console.log("id>>", id);
         sense.temperature(id, function (err, value) {
             if (err) {
+                console.log("reject >>>>", err);
                 reject(err);
+
                 logger.error('exception reading sensor Ds18b20', err);
             } else {
                 console.log("id>>", value);
