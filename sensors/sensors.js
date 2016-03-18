@@ -68,17 +68,20 @@ var _readDs18b20 = function () {
 };
 
 var _readDs18b20WithId = function (ids, resolve, reject) {
+    console.log("ids>>", ids);
     if (!utils.exists(ids)) {
         reject("no id for Ds18b20 sensor");
         logger.error('no id for Ds18b20 sensor');
         return;
     }
     _.each(utils.exists(ids) && !_.isArray(ids) ? [ids] : ids, function (id) {
+        console.log("id>>", id);
         sense.temperature(id, function (err, value) {
             if (err) {
                 reject(err);
                 logger.error('exception reading sensor Ds18b20', err);
             } else {
+                console.log("id>>", value);
                 resolve(value);
             }
         });
