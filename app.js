@@ -21,6 +21,9 @@ var stompService = require('./messaging/stompService')();
 var stompMessageClient;
 stompService.connect(function (sessionId, client) {
     stompMessageClient = client;
+    client.subscribe('/queue/take-photo', function(body, headers) {
+        console.log('This is the body of a message on the subscribed queue:', body);
+    });
 });
 
 /**
