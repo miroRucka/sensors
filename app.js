@@ -15,7 +15,7 @@ var jobTick = function () {
 
 //scheduler(jobTick).start();
 
-var cam = require('../camera/camera');
+var cam = require('./camera/camera');
 
 logger.info('>> taking picture...');
 
