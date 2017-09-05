@@ -15,15 +15,6 @@ var jobTick = function () {
 
 //scheduler(jobTick).start();
 
-var cam = require('./camera/camera');
-
-logger.info('>> taking picture...');
-
-cam().takePicture().then(function () {
-    logger.info('done!');
-});
-
-logger.info('<< taking picture');
 
 var stompService = require('./messaging/stompService')();
 
@@ -39,6 +30,17 @@ stompService.connect(function (sessionId, client) {
 setTimeout(function () {
     stompMessageClient.publish('/queue/take-photo', 'from raspberry :)');
 }, 3000);
+
+
+var cam = require('./camera/camera');
+
+logger.info('>> taking picture...');
+
+cam().takePicture().then(function () {
+    logger.info('done!');
+});
+
+logger.info('<< taking picture');
 
 
 process.on('SIGINT', function () {
