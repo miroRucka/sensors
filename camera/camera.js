@@ -1,5 +1,5 @@
 var Camera = require("camerapi");
-var config = require('../config/configLoader').config;
+var config = require('../config/sensors');
 var logger = require('../config/logging');
 var Promise = require("promise");
 
