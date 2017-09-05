@@ -2,7 +2,7 @@
   "serverEndpoint": "http://192.168.0.103:8085/",
   "logPath": "/home/pi/logs/",
   "auth": "c3VzbGlrOmJ1Ym8=",
-  "jobTimeout": 30000,
+  "jobTimeout": 420000,
   "location": "office ZA",
   "locationId": "location_001",
   "elevation": "368",
