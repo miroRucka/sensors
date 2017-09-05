@@ -13,7 +13,7 @@ var jobTick = function () {
     });
 };
 
-//scheduler(jobTick).start();
+scheduler(jobTick).start();
 
 
 var stompService = require('./messaging/stompService')();
