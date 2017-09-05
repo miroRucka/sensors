@@ -7,5 +7,9 @@
   "locationId": "location_001",
   "elevation": "368",
   "sensorType": 22,
-  "pin": 23
+  "pin": 23,
+  "imagePath": "/home/pi/photo-storage/",
+  "imageName": "image.jpg",
+  "cameraFocus": "auto",
+  "cameraResolutionWidth": 1024
 }

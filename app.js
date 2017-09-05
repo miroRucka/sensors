@@ -13,4 +13,15 @@ var jobTick = function () {
     });
 };
 
-scheduler(jobTick).start();
+//scheduler(jobTick).start();
+
+var cam = require('../camera/camera');
+
+logger.info('>> taking picture...');
+
+cam().takePicture().then(function () {
+    logger.info('done!');
+});
+
+logger.info('<< taking picture');
+

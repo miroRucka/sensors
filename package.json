@@ -6,13 +6,14 @@
     "node": "~0.8.0"
   },
   "dependencies": {
+    "camerapi": "0.1.0",
     "node-dht-sensor": "0.0.11",
     "restler": "3.2.2",
     "lodash": "2.4.1",
     "promise": "6.0.0",
     "winston": "0.7.3",
     "ds18b20": "0.1.0",
-    "bh1750": "0.0.2",
+    "bh1750": "0.0.3",
     "bmp085": "0.3.2"
   }
 }
