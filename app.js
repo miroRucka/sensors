@@ -25,3 +25,27 @@ cam().takePicture().then(function () {
 
 logger.info('<< taking picture');
 
+var stompService = require('./messaging/stompService')();
+
+var stompMessageClient;
+stompService.connect(function (sessionId, client) {
+    stompMessageClient = client;
+});
+
+/**
+ * test connect activemq via stomp...
+ *
+ */
+setTimeout(function () {
+    stompMessageClient.publish('/queue/take-photo', 'from raspberry :)');
+}, 3000);
+
+
+process.on('SIGINT', function () {
+    logger.info('Application sensors shutting down!');
+    stompMessageClient.disconnect();
+});
+process.on('uncaughtException', function (err) {
+    logger.error('Caught exception: ', err);
+});
+
