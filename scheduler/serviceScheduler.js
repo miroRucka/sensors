@@ -20,8 +20,7 @@ module.exports = function (job) {
                 }
                 startJob();
             }, config.jobTimeout);
-        }
-        ;
+    };
 
     var stopJob = function () {
         if (utils.exists(timeout)) {

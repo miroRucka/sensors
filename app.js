@@ -2,6 +2,8 @@ var logger = require('./config/logging');
 var sensors = require('./sensors/sensors');
 var uploader = require('./upload/sensorUploader');
 var scheduler = require('./scheduler/serviceScheduler');
+var stompService = require('./messaging/stompService')();
+var photoSubscriber = require('./messaging/photoSubscriber');
 
 logger.info('start application for reading sensor data...');
 
@@ -16,38 +18,18 @@ var jobTick = function () {
 scheduler(jobTick).start();
 
 
-var stompService = require('./messaging/stompService')();
 
 var stompMessageClient;
+var photoSubscriberInstance;
 stompService.connect(function (sessionId, client) {
     stompMessageClient = client;
-    client.subscribe('/queue/take-photo', function(body, headers) {
-        console.log('This is the body of a message on the subscribed queue:', body);
-    });
+    photoSubscriberInstance = photoSubscriber(client);
+    photoSubscriberInstance.subscribe();
 });
-
-/**
- * test connect activemq via stomp...
- *
- */
-setTimeout(function () {
-    stompMessageClient.publish('/queue/take-photo', 'from raspberry :)');
-}, 3000);
-
-
-var cam = require('./camera/camera');
-
-logger.info('>> taking picture...');
-
-cam().takePicture().then(function () {
-    logger.info('done!');
-});
-
-logger.info('<< taking picture');
-
 
 process.on('SIGINT', function () {
     logger.info('Application sensors shutting down!');
+    photoSubscriberInstance.unsubscribe();
     stompMessageClient.disconnect();
 });
 process.on('uncaughtException', function (err) {
