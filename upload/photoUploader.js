@@ -18,7 +18,7 @@ module.exports = function () {
                 reject(err);
             } else {
                 var uri = endpoint.getEndpoint() + "api/sensors/photo/" + config.locationId;
-                logger.info('start uploading to uri: ', uri);
+                logger.info('start uploading from path', imagePath, 'to uri: ', uri);
                 restler.put(uri, {
                     multipart: true,
                     headers: headers,
