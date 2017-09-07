@@ -1,5 +1,6 @@
 var cam = require('../camera/camera');
 var logger = require('../config/logging');
+var photoUploader = require('../upload/photoUploader');
 
 module.exports = function (stompClient) {
 
@@ -12,6 +13,8 @@ module.exports = function (stompClient) {
             logger.info('>> taking picture...', message, body, headers);
             cam().takePicture().then(function () {
                 logger.info('<< taking picture');
+                photoUploader();
+                logger.info('<< upload photo done!');
             });
         });
     };
