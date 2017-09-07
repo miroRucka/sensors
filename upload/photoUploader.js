@@ -17,7 +17,7 @@ module.exports = function () {
             if (err) {
                 reject(err);
             } else {
-                restler.put(endpoint.getEndpoint() + "api/sensors/photo/" + config.locationId, {
+                restler.post(endpoint.getEndpoint() + "api/sensors/photo/" + config.locationId, {
                     multipart: true,
                     headers: headers,
                     data: {
