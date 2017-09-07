@@ -1,4 +1,5 @@
 var cam = require('../camera/camera');
+var logger = require('../config/logging');
 
 module.exports = function (stompClient) {
 
