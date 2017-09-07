@@ -8,7 +8,7 @@ module.exports = function (stompClient) {
     var _subscribe = function () {
         logger.info('subscribe to ', destination);
         stompClient.subscribe(destination, function (body, headers) {
-            var message = body ? body.pointId : 'empty';
+            var message = body ? JSON.parse(body).pointId : 'empty';
             logger.info('>> taking picture...', message, body, headers);
             cam().takePicture().then(function () {
                 logger.info('<< taking picture');
