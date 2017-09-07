@@ -2,11 +2,12 @@ var cam = require('../camera/camera');
 
 module.exports = function (stompClient) {
 
-    var destination = '/queue/take-photo';
+    var destination = '/topic/take-photo';
 
     var _subscribe = function () {
-        stompClient.subscribe(destination, function(body, headers) {
-            logger.info('>> taking picture...');
+        stompClient.subscribe(destination, function (body, headers) {
+            var message = body ? body.pointId : 'empty';
+            logger.info('>> taking picture...', message);
             cam().takePicture().then(function () {
                 logger.info('<< taking picture');
             });
