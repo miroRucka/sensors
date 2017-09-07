@@ -17,7 +17,9 @@ module.exports = function () {
             if (err) {
                 reject(err);
             } else {
-                restler.post(endpoint.getEndpoint() + "api/sensors/photo/" + config.locationId, {
+                var uri = endpoint.getEndpoint() + "api/sensors/photo/" + config.locationId;
+                logger.info('start uploading to uri: ', uri);
+                restler.post(uri, {
                     multipart: true,
                     headers: headers,
                     data: {
@@ -25,6 +27,7 @@ module.exports = function () {
                     }
                 }).on("success", function (data) {
                     resolve(data);
+                    logger.info('uploading succes!');
                 }).on("fail", function (err) {
                     reject(err);
                     logger.error("exception photo uploading", err);
