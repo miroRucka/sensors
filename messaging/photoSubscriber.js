@@ -5,6 +5,7 @@ module.exports = function (stompClient) {
     var destination = '/topic/take-photo';
 
     var _subscribe = function () {
+        logger.info('subscribe to ', destination);
         stompClient.subscribe(destination, function (body, headers) {
             var message = body ? body.pointId : 'empty';
             logger.info('>> taking picture...', message);
