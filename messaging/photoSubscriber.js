@@ -19,10 +19,8 @@ module.exports = function (stompClient) {
         });
     };
 
-    var _unsubscribe = function (cb) {
-        cb = cb || function () {
-            };
-        stompClient.unsubscribe(destination, cb);
+    var _unsubscribe = function () {
+        stompClient.unsubscribe(destination);
     };
 
     var _resubscribe = function () {
