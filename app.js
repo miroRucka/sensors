@@ -16,6 +16,9 @@ stompService.connect(function (sessionId, client) {
 });
 
 var jobTick = function () {
+    if (photoSubscriberInstance) {
+        photoSubscriberInstance.resubscribe();
+    }
     sensors().then(function (data) {
         return uploader(data)
     }).then(function (data) {
@@ -24,7 +27,6 @@ var jobTick = function () {
 };
 
 scheduler(jobTick).start();
-
 
 
 process.on('uncaughtException', function (err) {

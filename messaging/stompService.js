@@ -15,23 +15,20 @@ module.exports = function () {
 
     var _connect = function (connectionCb) {
         logger.info('connect to stomp connection url: ', stompUrl, stompPort, ' as user ', user);
-        setInterval(function () {
-            logger.info('alive')
-        }, 5000);
         return stompClient.connect(function (sessionId) {
             connectionCb(sessionId, stompClient);
             stompClient.on("connect", function () {
                 logger.info('client connect');
-            })
+            });
             stompClient.on("reconnect", function () {
                 logger.info('client reconnect');
-            })
+            });
             stompClient.on("error", function (e) {
                 logger.info('client error', e);
-            })
+            });
             stompClient.on("reconnecting", function () {
                 logger.info('reconnecting');
-            })
+            });
         });
     };
 

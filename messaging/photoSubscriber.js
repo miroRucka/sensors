@@ -19,12 +19,22 @@ module.exports = function (stompClient) {
         });
     };
 
-    var _unsubscribe = function () {
-        stompClient.unsubscribe(destination);
+    var _unsubscribe = function (cb) {
+        cb = cb || function () {
+            };
+        stompClient.unsubscribe(destination, cb);
+    };
+
+    var _resubscribe = function () {
+        _unsubscribe(function () {
+            logger.info("success unsubscribe!");
+            _subscribe();
+        });
     };
 
     return {
         subscribe: _subscribe,
-        unsubscribe: _unsubscribe
+        unsubscribe: _unsubscribe,
+        resubscribe: _resubscribe
     }
 };
