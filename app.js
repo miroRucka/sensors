@@ -7,6 +7,14 @@ var photoSubscriber = require('./messaging/photoSubscriber');
 
 logger.info('start application for reading sensor data...');
 
+var stompMessageClient;
+var photoSubscriberInstance;
+stompService.connect(function (sessionId, client) {
+    stompMessageClient = client;
+    photoSubscriberInstance = photoSubscriber(client);
+    photoSubscriberInstance.subscribe();
+});
+
 var jobTick = function () {
     sensors().then(function (data) {
         return uploader(data)
@@ -19,19 +27,6 @@ scheduler(jobTick).start();
 
 
 
-var stompMessageClient;
-var photoSubscriberInstance;
-stompService.connect(function (sessionId, client) {
-    stompMessageClient = client;
-    photoSubscriberInstance = photoSubscriber(client);
-    photoSubscriberInstance.subscribe();
-});
-
-process.on('SIGINT', function () {
-    logger.info('Application sensors shutting down!');
-    photoSubscriberInstance.unsubscribe();
-    stompMessageClient.disconnect();
-});
 process.on('uncaughtException', function (err) {
     logger.error('Caught exception: ', err);
 });
