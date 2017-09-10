@@ -26,10 +26,8 @@ module.exports = function (stompClient) {
     };
 
     var _resubscribe = function () {
-        _unsubscribe(function () {
-            logger.info("success unsubscribe!");
-            _subscribe();
-        });
+        _unsubscribe();
+        _subscribe();
     };
 
     return {
