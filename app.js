@@ -29,8 +29,14 @@ logger.info('garden-pi');
 
  scheduler(jobTick).start();*/
 
-sensors().then(function (data) {
-    logger.info('temperature is: ' + data);
+var sensor = require('node-dht-sensor');
+
+sensor.read(11, 17, function(err, temperature, humidity) {
+ if (!err) {
+  console.log('temp: ' + temperature.toFixed(1) + '°C, ' +
+      'humidity: ' + humidity.toFixed(1) + '%'
+  );
+ }
 });
 
 
