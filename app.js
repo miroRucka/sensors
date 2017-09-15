@@ -29,15 +29,16 @@ logger.info('garden-pi');
 
  scheduler(jobTick).start();*/
 
-var sensor = require('node-dht-sensor');
+var rpiDhtSensor = require('rpi-dht-sensor');
 
-sensor.read(11, 17, function(err, temperature, humidity) {
- if (!err) {
-  console.log('temp: ' + temperature.toFixed(1) + '°C, ' +
-      'humidity: ' + humidity.toFixed(1) + '%'
-  );
- }
-});
+var dht = new rpiDhtSensor.DHT11(2);
+
+function read() {
+    var readout = dht.read();
+
+    console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' + 'humidity: ' + readout.humidity.toFixed(2) + '%');
+}
+read();
 
 
 process.on('uncaughtException', function (err) {
