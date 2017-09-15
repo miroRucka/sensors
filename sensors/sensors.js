@@ -94,6 +94,7 @@ var _getPressureRSL = function (pressure, temperature, elevation) {
     return Number(pressure) / Math.exp(-Number(elevation) / (29.271795 * (273.15 + Number(temperature))));
 };
 
+/*
 module.exports = function () {
     var result = dataTemplate.get();
     return _readBmp085()
@@ -123,4 +124,6 @@ module.exports = function () {
                 resolve(result);
             });
         });
-};
+};*/
+
+module.exports = _readDs18b20;
