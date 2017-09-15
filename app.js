@@ -6,8 +6,9 @@ var stompService = require('./messaging/stompService')();
 var photoSubscriber = require('./messaging/photoSubscriber');
 
 logger.info('start application for reading sensor data...');
+logger.info('garden-pi');
 
-var stompMessageClient;
+/*var stompMessageClient;
 var photoSubscriberInstance;
 stompService.connect(function (sessionId, client) {
     stompMessageClient = client;
@@ -26,7 +27,7 @@ var jobTick = function () {
     });
 };
 
-scheduler(jobTick).start();
+scheduler(jobTick).start();*/
 
 
 process.on('uncaughtException', function (err) {
