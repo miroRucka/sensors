@@ -8,30 +8,26 @@ var photoSubscriber = require('./messaging/photoSubscriber');
 logger.info('start application for reading sensor data...');
 logger.info('garden-pi');
 
-/*var stompMessageClient;
- var photoSubscriberInstance;
- stompService.connect(function (sessionId, client) {
- stompMessageClient = client;
- photoSubscriberInstance = photoSubscriber(client);
- photoSubscriberInstance.subscribe();
- });
-
- var jobTick = function () {
- if (photoSubscriberInstance) {
- photoSubscriberInstance.resubscribe();
- }
- sensors().then(function (data) {
- return uploader(data)
- }).then(function (data) {
- logger.info('result after upload is ', data);
- });
- };
-
- scheduler(jobTick).start();*/
-
-sensors().then(function (data) {
-    console.log(data);
+var stompMessageClient;
+var photoSubscriberInstance;
+stompService.connect(function (sessionId, client) {
+    stompMessageClient = client;
+    photoSubscriberInstance = photoSubscriber(client);
+    photoSubscriberInstance.subscribe();
 });
+
+var jobTick = function () {
+    if (photoSubscriberInstance) {
+        photoSubscriberInstance.resubscribe();
+    }
+    sensors().then(function (data) {
+        return uploader(data)
+    }).then(function (data) {
+        logger.info('result after upload is ', data);
+    });
+};
+
+scheduler(jobTick).start();
 
 
 process.on('uncaughtException', function (err) {

@@ -1,5 +1,5 @@
 {
-  "serverEndpoint": "http://192.168.1.17:8082/",
+  "serverEndpoint": "http://192.168.1.16:8082/",
   "logPath": "/home/pi/logs/",
   "auth": "c3VzbGlrOmJ1Ym8=",
   "jobTimeout": 420000,
