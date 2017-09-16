@@ -26,7 +26,7 @@ var dht11 = new rpiDhtSensor.DHT11(17);
 
 var _readDHT = function () {
     return new Promise(function (resolve, reject) {
-        logger.info("dht 22 enabled:" + config.hw.dht22);
+        //logger.info("dht 22 enabled:" + config.hw.dht22);
         if (!config.hw.dht22) {
             reject();
         }
@@ -46,7 +46,7 @@ var _readDHT = function () {
 
 function _readDHT11() {
     return new Promise(function (resolve, reject) {
-        logger.info("dht 11 enabled:" + config.hw.dht11);
+        //logger.info("dht 11 enabled:" + config.hw.dht11);
         if (!config.hw.dht11) {
             reject();
         }
@@ -66,7 +66,7 @@ function _readDHT11() {
 
 var _readBmp085 = function () {
     return new Promise(function (resolve, reject) {
-        logger.info("bmp 085 enabled:" + config.hw.bmp085);
+        //logger.info("bmp 085 enabled:" + config.hw.bmp085);
         if (!config.hw.bmp085) {
             reject();
         }
@@ -80,7 +80,7 @@ var _readBmp085 = function () {
 
 var _readLight = function () {
     return new Promise(function (resolve, reject) {
-        logger.info("bh 1750 enabled:" + config.hw.bh1750);
+        //logger.info("bh 1750 enabled:" + config.hw.bh1750);
         if (!config.hw.bh1750) {
             reject();
         }
@@ -94,7 +94,7 @@ var _readLight = function () {
 
 var _readDs18b20 = function () {
     return new Promise(function (resolve, reject) {
-        logger.info("ds 18b20 enabled:" + config.hw.ds18b20);
+        //logger.info("ds 18b20 enabled:" + config.hw.ds18b20);
         if (!Boolean(config.hw.ds18b20)) {
             reject();
         }
@@ -113,7 +113,6 @@ var _readDs18b20 = function () {
 };
 
 var _readDs18b20WithId = function (ids, resolve, reject) {
-    console.log("ids>>", ids);
     if (!utils.exists(ids)) {
         reject("no id for Ds18b20 sensor");
         logger.error('no id for Ds18b20 sensor');
