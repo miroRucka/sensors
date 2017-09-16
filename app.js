@@ -36,9 +36,13 @@ var dht = new rpiDhtSensor.DHT11(2);
 function read() {
     var readout = dht.read();
 
-    console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' + 'humidity: ' + readout.humidity.toFixed(2) + '%');
+    console.log('>> Temperature: ' + readout.temperature.toFixed(2) + 'C, ' + 'humidity: ' + readout.humidity.toFixed(2) + '%');
 }
 read();
+
+sensors().then(function (temperature) {
+    console.log('>> temperature is ' + temperature);
+});
 
 
 process.on('uncaughtException', function (err) {
