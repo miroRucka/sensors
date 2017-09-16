@@ -11,19 +11,25 @@ var sense = require('ds18b20');
 var BMP085 = require('bmp085');
 var barometer = new BMP085();
 var BH1750 = require('bh1750');
+var rpiDhtSensor = require('rpi-dht-sensor');
 var _ = require('lodash');
 var utils = require('../utils');
+
 
 /**
  * init
  */
 var light = new BH1750();
-var init = dht.initialize(config.sensorType, config.pin);
+var initDHT22 = dht.initialize(config.sensorTypeDHT22, config.pinDHT22);
+var dht11 = new rpiDhtSensor.DHT11(17);
 
 
 var _readDHT = function () {
     return new Promise(function (resolve, reject) {
-        if (init) {
+        if (!Boolean(config.hw.dht22)) {
+            resolve(undefined);
+        }
+        else if (initDHT22) {
             var readout = dht.read();
             var data = {
                 temperature: readout.temperature,
@@ -37,34 +43,67 @@ var _readDHT = function () {
     });
 };
 
+function _readDHT11() {
+    return new Promise(function (resolve, reject) {
+        if (!Boolean(config.hw.dht11)) {
+            resolve(undefined);
+        }
+        else if (dht11) {
+            var readout = dht11.read();
+            var data = {
+                temperature: readout.temperature,
+                humidity: readout.humidity
+            };
+            resolve(data);
+        } else {
+            logger.error('error occurred - read sensor data, please check configuration and hw settings,');
+            reject();
+        }
+    });
+}
+
 var _readBmp085 = function () {
     return new Promise(function (resolve, reject) {
-        barometer.read(function (data) {
-            resolve(data);
-        });
+        if (!Boolean(config.hw.bmp085)) {
+            resolve(undefined);
+        }
+        else {
+            barometer.read(function (data) {
+                resolve(data);
+            });
+        }
     });
 };
 
 var _readLight = function () {
     return new Promise(function (resolve, reject) {
-        light.readLight(function (value) {
-            resolve(value);
-        });
-
+        if (!Boolean(config.hw.bh1750)) {
+            resolve(undefined);
+        }
+        else {
+            light.readLight(function (value) {
+                resolve(value);
+            });
+        }
     });
 };
 
 var _readDs18b20 = function () {
     return new Promise(function (resolve, reject) {
-        sense.sensors(function (err, ids) {
-            if (err) {
-                reject(err);
-                console.log("reject after read >>>>", err);
-                logger.error('exception reading sensor Ds18b20', err);
-            } else {
-                _readDs18b20WithId(ids, resolve, reject)
-            }
-        });
+        if (!Boolean(config.hw.ds18b20)) {
+            resolve(undefined);
+        }
+        else {
+            sense.sensors(function (err, ids) {
+                if (err) {
+                    reject(err);
+                    console.log("reject after read >>>>", err);
+                    logger.error('exception reading sensor Ds18b20', err);
+                } else {
+                    _readDs18b20WithId(ids, resolve, reject)
+                }
+            });
+        }
     });
 };
 
@@ -94,7 +133,7 @@ var _getPressureRSL = function (pressure, temperature, elevation) {
     return Number(pressure) / Math.exp(-Number(elevation) / (29.271795 * (273.15 + Number(temperature))));
 };
 
-/*
+
 module.exports = function () {
     var result = dataTemplate.get();
     return _readBmp085()
@@ -116,6 +155,12 @@ module.exports = function () {
         }).then(function (dht) {
             result.temperature.push({'key': 't3', value: Number(dht.temperature)});
             result.humidity = dht.humidity;
+            return _readDHT11()
+        }, function () {
+            return _readDHT11();
+        }).then(function (dht) {
+            result.temperature.push({'key': 't4', value: Number(dht.temperature)});
+            result.humidity = dht.humidity;
             return new Promise(function (resolve) {
                 resolve(result);
             });
@@ -124,6 +169,5 @@ module.exports = function () {
                 resolve(result);
             });
         });
-};*/
+};
 
-module.exports = _readDs18b20;

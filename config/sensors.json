@@ -5,11 +5,26 @@
   "jobTimeout": 420000,
   "location": "office ZA",
   "locationId": "location_001",
-  "elevation": "368",
-  "sensorType": 22,
-  "pin": 23,
+  "elevation": "400",
+  "sensorTypeDHT22": 22,
+  "sensorTypeDHT11": 11,
+  "pinDHT22": 23,
+  "pinDHT11": 17,
   "imagePath": "/home/pi/photo-storage/",
   "imageName": "image.jpg",
   "cameraFocus": "auto",
-  "cameraResolutionWidth": 1024
+  "cameraResolutionWidth": 1024,
+  "hw": {
+    "_comment_dht22": "temperature sensor base on dht 22",
+    "dht22": false,
+    "_comment_dht11": "temperature sensor base on dht 11",
+    "dht11": true,
+    "_comment_bmp085": "pressure sensor",
+    "bmp085": false,
+    "_comment_bh1750": "light sensor",
+    "bh1750": false,
+    "_comment_ds18b20": "temperature sensor base on ds18b20",
+    "ds18b20": true,
+    "camera": true
+  }
 }
