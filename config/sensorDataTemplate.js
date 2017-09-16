@@ -6,9 +6,9 @@ var config = require('./sensors.json');
 module.exports.get = function () {
     return {
         temperature: [],
-        pressure: 0,
-        light: 0,
-        humidity:0,
+        pressure: undefined,
+        light: undefined,
+        humidity: undefined,
         location: config.location,
         locationId: config.locationId
     }
