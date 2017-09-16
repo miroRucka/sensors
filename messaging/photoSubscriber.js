@@ -1,6 +1,7 @@
 var cam = require('../camera/camera');
 var logger = require('../config/logging');
 var photoUploader = require('../upload/photoUploader');
+var config = require('../config/sensors.json');
 
 module.exports = function (stompClient) {
 
@@ -10,8 +11,11 @@ module.exports = function (stompClient) {
         logger.info('subscribe to ', destination);
         stompClient.subscribe(destination, function (body, headers) {
             logger.info("get message ", body);
-            logger.info("get parsed message ", JSON.parse(body));
             var message = body ? JSON.parse(body).pointId : 'empty';
+            if (config.locationId !== message) {
+                logger.info("get message with point id " + message);
+                return;
+            }
             logger.info('>> taking picture...', message, body, headers);
             cam().takePicture().then(function () {
                 logger.info('<< taking picture');
