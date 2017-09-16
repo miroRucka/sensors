@@ -11,6 +11,10 @@ module.exports = function (stompClient) {
         logger.info('subscribe to ', destination);
         stompClient.subscribe(destination, function (body, headers) {
             logger.info("get message ", body);
+            if (!config.hw.camera) {
+                logger.info("missing camera!");
+                return;
+            }
             var message = body ? JSON.parse(body).pointId : 'empty';
             if (config.locationId !== message) {
                 logger.info("get message with point id " + message);
