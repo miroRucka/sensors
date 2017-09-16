@@ -9,6 +9,8 @@ module.exports = function (stompClient) {
     var _subscribe = function () {
         logger.info('subscribe to ', destination);
         stompClient.subscribe(destination, function (body, headers) {
+            logger.info("get message ", body);
+            logger.info("get parsed message ", JSON.parse(body));
             var message = body ? JSON.parse(body).pointId : 'empty';
             logger.info('>> taking picture...', message, body, headers);
             cam().takePicture().then(function () {
