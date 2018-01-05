@@ -27,6 +27,9 @@ var jobTick = function () {
     });
 };
 
+//after restart
+jobTick();
+
 scheduler(jobTick).start();
 
 
