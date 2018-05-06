@@ -186,13 +186,14 @@ module.exports = function () {
                 resolve(result);
             });
             return _readAm2320();
-        }).then(function(am2320){
+        }).then(function (am2320) {
+            logger.info(am2320);
             result.temperature.push({'key': 't5', value: Number(am2320.temperature)});
             result.humidity = am2320.humidity;
             return new Promise(function (resolve) {
                 resolve(result);
             });
-        },function(){
+        }, function () {
             return new Promise(function (resolve) {
                 resolve(result);
             });
