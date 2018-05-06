@@ -11,6 +11,7 @@ var sense = require('ds18b20');
 var BMP085 = require('bmp085');
 var barometer = new BMP085();
 var BH1750 = require('bh1750');
+var AM2320 = require('am2320');
 var rpiDhtSensor = require('rpi-dht-sensor');
 var _ = require('lodash');
 var utils = require('../utils');
@@ -22,6 +23,7 @@ var utils = require('../utils');
 var light = new BH1750();
 var initDHT22 = dht.initialize(config.sensorTypeDHT22, config.pinDHT22);
 var dht11 = new rpiDhtSensor.DHT11(17);
+var am2320 = new AM2320();
 
 
 var _readDHT = function () {
@@ -130,6 +132,17 @@ var _readDs18b20WithId = function (ids, resolve, reject) {
     });
 };
 
+var _readAm2320 = function () {
+    if (!Boolean(config.hw.am2320)) {
+        return new Promise(function (resolve, reject) {
+            reject();
+        });
+    }
+    else {
+        return am2320.readValues();
+    }
+};
+
 var _getPressureRSL = function (pressure, temperature, elevation) {
     if (_.isUndefined(pressure) || _.isUndefined(temperature) || _.isUndefined(elevation)) {
         return;
@@ -156,7 +169,7 @@ module.exports = function () {
         }).then(function (light) {
             result.light = light;
             return _readDHT()
-        },function () {
+        }, function () {
             return _readDHT()
         }).then(function (dht) {
             result.temperature.push({'key': 't3', value: Number(dht.temperature)});
@@ -167,10 +180,19 @@ module.exports = function () {
         }).then(function (dht) {
             result.temperature.push({'key': 't4', value: Number(dht.temperature)});
             result.humidity = dht.humidity;
+            return _readAm2320();
+        }, function () {
             return new Promise(function (resolve) {
                 resolve(result);
             });
-        }, function () {
+            return _readAm2320();
+        }).then(function(am2320){
+            result.temperature.push({'key': 't5', value: Number(am2320.temperature)});
+            result.humidity = am2320.humidity;
+            return new Promise(function (resolve) {
+                resolve(result);
+            });
+        },function(){
             return new Promise(function (resolve) {
                 resolve(result);
             });

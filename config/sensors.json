@@ -16,7 +16,7 @@
   "cameraResolutionWidth": 1024,
   "hw": {
     "_comment_dht22": "temperature sensor base on dht 22",
-    "dht22": true,
+    "dht22": false,
     "_comment_dht11": "temperature sensor base on dht 11",
     "dht11": false,
     "_comment_bmp085": "pressure sensor",
@@ -25,6 +25,8 @@
     "bh1750": false,
     "_comment_ds18b20": "temperature sensor base on ds18b20",
     "ds18b20": false,
+    "_comment_am2320": "temperature, humidity sensor base on am2320, new black boxed sensor",
+    "am2320": true,
     "camera": false
   }
 }
