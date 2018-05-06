@@ -182,9 +182,6 @@ module.exports = function () {
             result.humidity = dht.humidity;
             return _readAm2320();
         }, function () {
-            return new Promise(function (resolve) {
-                resolve(result);
-            });
             return _readAm2320();
         }).then(function (am2320) {
             logger.info(am2320);
