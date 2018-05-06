@@ -3,9 +3,9 @@
   "logPath": "/home/pi/logs/",
   "auth": "c3VzbGlrOmJ1Ym8=",
   "jobTimeout": 420000,
-  "location": "office ZA",
-  "locationId": "location_001",
-  "elevation": "400",
+  "location": "house zero",
+  "locationId": "location_003",
+  "elevation": "394",
   "sensorTypeDHT22": 22,
   "sensorTypeDHT11": 11,
   "pinDHT22": 23,
@@ -16,15 +16,15 @@
   "cameraResolutionWidth": 1024,
   "hw": {
     "_comment_dht22": "temperature sensor base on dht 22",
-    "dht22": false,
+    "dht22": true,
     "_comment_dht11": "temperature sensor base on dht 11",
-    "dht11": true,
+    "dht11": false,
     "_comment_bmp085": "pressure sensor",
     "bmp085": false,
     "_comment_bh1750": "light sensor",
     "bh1750": false,
     "_comment_ds18b20": "temperature sensor base on ds18b20",
-    "ds18b20": true,
-    "camera": true
+    "ds18b20": false,
+    "camera": false
   }
 }
